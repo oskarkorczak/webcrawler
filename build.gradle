@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+description = 'Webcrawler.'
+buildDir = 'target'
+
+def langLevel = 1.8
+sourceCompatibility = langLevel
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	testCompile 'org.codehaus.groovy:groovy-all:2.4.7'
+	testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+	testRuntime 'cglib:cglib-nodep:2.2.2'        // allows mocking of classes (in addition to interfaces)
+	testRuntime 'org.objenesis:objenesis:1.2'    // allows mocking of classes without default constructor (together with CGLIB)
+}
+
+test {
+	testLogging {
+		events 'passed', 'skipped', 'failed'
+	}
+}
+
+idea {
+	project {
+		jdkName = langLevel
+		languageLevel = langLevel
+	}
+}
